@@ -1,0 +1,84 @@
+{% extends 'baseDashboard.html.twig' %}
+{% block content %}
+    {% block title %}Horaires{% endblock %}
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+
+        <ul class="sidebar-nav" id="sidebar-nav">
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ path("app_vendor_dashboard") }}">
+                    <i class="bi bi-grid"></i>
+                    <span>Tableau de bord</span>
+                </a>
+            </li><!-- End Dashboard Nav -->
+
+            <li class="nav-heading">Pages</li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ path("app_vendor_profile") }}">
+                    <i class="bi bi-person"></i>
+                    <span>Profil</span>
+                </a>
+            </li><!-- End Profile Page Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ path('app_vendor_calendar') }}">
+                    <i class="bi bi-android"></i>
+                    <span>Calendrier</span>
+                </a>
+            </li><!-- End F.A.Q Page Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_vendor_horaires') }}">
+                    <i class="bi bi-alarm"></i>
+                    <span>Ouverture / Fermeture</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ path('app_contact') }}">
+                    <i class="bi bi-envelope"></i>
+                    <span>Contact</span>
+                </a>
+            </li><!-- End Contact Page Nav -->
+        </ul>
+
+    </aside><!-- End Sidebar-->
+
+    <main id="main" class="main">
+
+        <div class="pagetitle">
+            <h1>Horaires d'ouverture et de fermeture</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('app_vendor_dashboard') }}">Accueil</a></li>
+                    <li class="breadcrumb-item active">Horaires</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+
+        <section class="section profile">
+            {% if app.user.openingTime is not null %}
+                <p>Votre magasin est actuellement ouvert de {{ app.user.openingTime|date('H:i') }}
+                    à {{ app.user.closingTime|date('H:i') }}</p>
+                {% if app.user.appointmentDuration != 0 %}<p>Vous pouvez prendre des rendez-vous toutes les {{ app.user.appointmentDuration }} minutes</p>{% endif %}
+                <h2>Changer vos heures d'ouverture et fermeture : </h2>
+                {{ form_start(form) }}
+                {{ form_row(form.openingTime) }}
+                {{ form_row(form.closingTime) }}
+                {{ form_row(form.appointment_duration) }}
+                <button type="submit">Enregistrer</button>
+                {{ form_end(form) }}
+            {% else %}
+                <h2>Intégrez vos heures d'ouverture et fermeture</h2>
+                {{ form_start(form) }}
+                {{ form_row(form.openingTime) }}
+                {{ form_row(form.closingTime) }}
+                {{ form_row(form.appointment_duration) }}
+                <button type="submit">Enregistrer</button>
+                {{ form_end(form) }}
+            {% endif %}
+        </section>
+    </main>
+{% endblock %}

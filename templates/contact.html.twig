@@ -1,0 +1,130 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+<main id="main">
+<div class="breadcrumbs">
+      <div class="page-header d-flex align-items-center" style="background-image: url('{{ asset('assets/images/about_topbanner.jpg') }}');">
+        <div class="container position-relative">
+          <div class="row d-flex justify-content-center">
+            <div class="col-lg-6 text-center">
+              <h2>Contact</h2>
+              <p>N'hésitez pas à nous contacter et nous poser la moindre question via notre formulaire de contact.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <nav>
+        <div class="container">
+          <ol>
+            <li><a href="{{ path('app_home_index') }}">Accueil</a></li>
+            <li>Contact</li>
+          </ol>
+        </div>
+      </nav>
+    </div><!-- End Breadcrumbs -->
+
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container" data-aos="fade-up">
+
+        <div id="map" style="height: 400px;"></div>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBB0fquFJ3W8edTFnSfD1HOswuDynGIr-U"></script>
+        <script>
+          function initMap() {
+            // Coordonnées de Vichy
+            var clermont = {lat: 45.76788330078125, lng: 3.1020283699035645};
+
+            // Création de la carte centrée sur Vichy
+            var map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 12,
+              center: clermont
+            });
+          }
+        </script>
+        <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            initMap();
+          });
+        </script>
+        <div class="row gy-4 mt-4">
+
+          <div class="col-lg-4">
+            <div class="info-item d-flex">
+              <i class="bi bi-geo-alt flex-shrink-0"></i>
+              <div>
+                <h4>Location:</h4>
+                <p>EAF, 63000 Clermont-Ferrand</p>
+              </div>
+            </div><!-- End Info Item -->
+            <div class="info-item d-flex">
+              <i class="bi bi-envelope flex-shrink-0"></i>
+              <div>
+                <h4>Email:</h4>
+                <p>contact@cc&c.com</p>
+              </div>
+            </div><!-- End Info Item -->
+            <div class="info-item d-flex">
+              <i class="bi bi-phone flex-shrink-0"></i>
+              <div>
+                <h4>Téléphone:</h4>
+                <p>0765181007</p>
+              </div>
+            </div><!-- End Info Item -->
+          </div>
+
+          <div class="col-lg-8">
+            {{ form_start(form) }}
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  {{ form_label(form.nom) }}
+    {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="col-md-6 form-group mt-3 mt-md-0">
+                  {{ form_label(form.email) }}
+    {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                </div>
+              </div>
+              <div class="form-group mt-3">
+                 {{ form_label(form.message) }}
+    {{ form_widget(form.message, {'attr': {'class': 'form-control'}}) }}
+              </div>
+              <div class="my-3">
+                <div class="loading"></div>
+                <div class="error-message"></div>{% if sent %}
+                <div class="sent-message">Votre message a bien été envoyé !</div>
+                {% endif %}
+              </div>
+              {{ form_rest(form) }}
+              <div class="text-center"><button class="btn btn-primary" type="submit">Envoyer le message !</button></div>
+    {{ form_end(form) }}
+          </div><!-- End Contact Form -->
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  {% block footer %}
+    {% include 'layouts/footer.html.twig' %}
+  {% endblock footer %}
+  <!-- End Footer -->
+
+  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="{{ asset('/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('/assets/vendor/purecounter/purecounter_vanilla.js') }}"></script>
+  <script src="{{ asset('/assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
+  <script src="{{ asset('/assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
+  <script src="{{ asset('/assets/vendor/aos/aos.js') }}"></script>
+  <script src="{{ asset('/assets/vendor/php-email-form/validate.js') }}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{{ asset('/assets/js/main.js') }}"></script>
+{% endblock %}
+
+

@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+	<div class="section loginpage">
+		<div class="container">
+			<div class="row full-height justify-content-center">
+				<div class="col-12 text-center align-self-center py-5" style="margin-top:100px;">
+					<div class="section pb-5 pt-5 pt-sm-2 text-center">
+						<h6 class="mb-0 pb-3"><span>Vétérinaire</span><span>Particulier</span></h6>
+			          	<input class="checkbox" type="checkbox" id="reg-log" name="reg-log"/>
+			          	<label for="reg-log"></label>
+						<div class="card-3d-wrap mx-auto">
+							<div class="card-3d-wrapper">
+								<div class="card-front">
+									<div class="center-wrap">
+										<div class="section text-center">
+											<h4 class="mb-4 pb-3">Je suis Vétérinaire</h4>
+											{{ form_start(registrationVetoForm) }}
+											<div class="form-group">
+                      {{ form_label(registrationVetoForm.name,"Nom Complet") }}
+    {{ form_widget(registrationVetoForm.name, {'attr': {'class': 'form-style'}}) }}
+											</div>	
+											<div class="form-group mt-2">
+                      {{ form_label(registrationVetoForm.email,"Email") }}
+    {{ form_widget(registrationVetoForm.email, {'attr': {'class': 'form-style'}}) }}
+											</div>	
+											<div class="form-group mt-2">
+                      {{ form_label(registrationVetoForm.plainPassword,"Mot de passe") }}
+    {{ form_widget(registrationVetoForm.plainPassword, {'attr': {'class': 'form-style'}}) }}
+											</div>
+											<button type="submit" class="btn mt-4">Envoyer !</button>
+                       {{ form_end(registrationVetoForm) }}
+				      					</div>
+			      					</div>
+			      				</div>
+								<div class="card-back">
+									<div class="center-wrap">
+										<div class="section text-center">
+											<h4 class="mb-4 pb-3">Je suis Client</h4>
+                      {{ form_start(registrationForm) }}
+											<div class="form-group">
+                      {{ form_label(registrationForm.name,"Nom Complet") }}
+    {{ form_widget(registrationForm.name, {'attr': {'class': 'form-style'}}) }}
+											</div>	
+											<div class="form-group mt-2">
+                      {{ form_label(registrationForm.email,"Email") }}
+    {{ form_widget(registrationForm.email, {'attr': {'class': 'form-style'}}) }}
+											</div>	
+											<div class="form-group mt-2">
+                      {{ form_label(registrationForm.plainPassword,"Mot de passe") }}
+    {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-style'}}) }}
+											</div>
+											<button type="submit" class="btn mt-4">Envoyer !</button>
+                       {{ form_end(registrationForm) }}
+				      					</div>
+			      					</div>
+			      				</div>
+			      			</div>
+			      		</div>
+			      	</div>
+		      	</div>
+	      	</div>
+	    </div>
+	</div>
+{% endblock %}

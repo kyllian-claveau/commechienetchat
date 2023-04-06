@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    {% include 'layouts/head.html.twig' with {"title":"Comme Chien et Chat"} %}
+</head>
+{% block body %}
+    {% include "layouts/header.html.twig" %}
+    {% block content %}{% endblock %}
+    {% block footer %}
+        {% include 'layouts/footer.html.twig' %}
+    {% endblock footer %}
+{% endblock %}
+</html>

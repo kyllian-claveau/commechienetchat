@@ -1,0 +1,117 @@
+{% extends 'baseDashboard.html.twig' %}
+{% block content %}
+    <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ path("app_vendor_dashboard") }}">
+          <i class="bi bi-grid"></i>
+          <span>Tableau de bord</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-heading">Pages</li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ path("app_vendor_profile") }}">
+          <i class="bi bi-person"></i>
+          <span>Profil</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_vendor_calendar') }}">
+          <i class="bi bi-android"></i>
+          <span>Calendrier</span>
+        </a>
+      </li><!-- End F.A.Q Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ path('app_vendor_horaires') }}">
+          <i class="bi bi-alarm"></i>
+          <span>Ouverture / Fermeture</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ path('app_contact') }}">
+          <i class="bi bi-envelope"></i>
+          <span>Contact</span>
+        </a>
+      </li><!-- End Contact Page Nav -->
+    </ul>
+
+  </aside><!-- End Sidebar-->
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Dashboard</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{{ path('app_vendor_dashboard') }}">Accueil</a></li>
+          <li class="breadcrumb-item active">Agenda</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+      <div id="calendar"></div>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const calendarEl = document.getElementById('calendar');
+
+          const calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'timeGridWeek', // afficher la vue hebdomadaire
+            nowIndicator: true, // afficher une ligne verticale pour indiquer l'heure actuelle
+            locale:'fr',
+            firstDay: 1,
+            slotMinTime: '{{ app.user.openingTime|date("H:i") }}', // Fait commencer le calendrier à 8h00
+            slotMaxTime: '{{ app.user.closingTime|date("H:i") }}', // Fait commencer le calendrier à 8h00
+            height:'710px',
+            headerToolbar: {
+              start: 'prev,next today', // boutons pour naviguer entre les semaines et revenir à la semaine en cours
+              center: 'title', // titre du calendrier (mois en cours)
+              end: 'timeGridDay,timeGridWeek,timeGridMonth' // boutons pour changer de vue
+            },
+            slotDuration: '{{ app.user.appointmentDuration|date("H:i") }}', // durée de chaque intervalle horaire (30 minutes)
+            slotLabelInterval: '01:00', // intervalle entre les étiquettes horaires (1 heure)
+            now: new Date(), // définir l'heure actuelle
+            businessHours: { // heures de travail (du lundi au vendredi de 9h à 18h)
+              daysOfWeek: [ 1, 2, 3, 4, 5, 6, 7 ], // du lundi au vendredi
+              startTime: '{{ app.user.openingTime|date("H:i") }}', // heure de début
+              endTime: '{{ app.user.closingTime|date("H:i") }}' // heure de fin
+            },
+            slotLabelFormat: {
+              hour: 'numeric',
+              minute: '2-digit',
+              omitZeroMinute: false,
+              meridiem: false
+            },
+            allDaySlot: false,
+            timeFormat: 'HH:mm', // format 24 heures
+            events: {url:'{{ path('vet_list_appointments',{id:app.user.id}) }}'},
+          });
+
+          calendar.render();
+        });
+      </script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js'></script>
+  </main>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{{ asset('/assets/vendor/apexcharts/apexcharts.min.js') }}"></script>
+  <script src="{{ asset('/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('/assets/vendor/chart.js/chart.umd.js') }}"></script>
+  <script src="{{ asset('/assets/vendor/echarts/echarts.min.js') }}"></script>
+  <script src="{{ asset('/assets/vendor/quill/quill.min.js') }}"></script>
+  <script src="{{ asset('/assets/vendor/simple-datatables/simple-datatables.js') }}"></script>
+  <script src="{{ asset('/assets/vendor/tinymce/tinymce.min.js') }}"></script>
+  <script src="{{ asset('/assets/vendor/php-email-form/validate.js') }}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{{ asset('/assets/js/dashboard/main.js') }}"></script>
+
+{% endblock %}

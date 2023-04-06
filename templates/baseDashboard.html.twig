@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    {% include 'layouts/dashboardVendor/head.html.twig' with {"title":"Tableau de bord"} %}
+</head>
+{% block body %}
+    {% if is_granted('ROLE_VENDOR') %}
+    {% include "layouts/dashboardVendor/header.html.twig" %}
+    {% else %}
+    {% include "layouts/dashboard/header.html.twig" %}
+    {% endif %}
+    {% block content %}{% endblock %}
+    {% block footer %}
+        {% include 'layouts/dashboard/footer.html.twig' %}
+    {% endblock footer %}
+{% endblock %}
+</html>

@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+    <h1 style="margin-top:100px; text-align:center">Prendre Rendez-Vous avec {{ vendor.name }}</h1>
+    <div class="container mt-5 mb-5 d-flex justify-content-center">
+    {{ form_start(form) }}
+    <div class="card px-1 py-4">
+    <div class="card-body">
+        <h6 class="card-title mb-3">Ce rendez-vous est pour :</h6>
+        <div class="d-flex flex-row"><span> <i class="fa fa-user"></i>{{ app.user.name }}</span></div>
+        <h6 class="information mt-4">Information pour le rendez vous</h6>
+        <div class="row-appointment">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    {{ form_widget(form.pet, {'attr': {'class': 'form-control-appointment','placeholder':'Choisissez votre animal*'}}) }}
+                </div>
+            </div>
+            <div class="row-appointment">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        {{ form_widget(form.phone, {'attr': {'class': 'form-control-appointment','placeholder':'Numéro de téléphone*'}}) }}
+                    </div>
+                </div>
+            </div>
+            <div class="row-appointment">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        {{ form_widget(form.email, {'attr': {'class': 'form-control-appointment','placeholder':'Email'}}) }}
+                    </div>
+                </div>
+                <div class="row-appointment">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            {{ form_widget(form.description, {'attr': {'class': 'form-control-appointment','placeholder':'Quel est la raison du rendez-vous ?'}}) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row-appointment">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            {{ form_widget(form.appointmentDateTime, {'attr': {'class': 'form-control-appointment flatpickr-date','placeholder':'Date souhaitée'}}) }}
+                        </div>
+                    </div>
+                </div>
+                <div class=" d-flex flex-column text-center px-5 mt-3 mb-3"><small class="agree-text">By Booking this
+                        appointment you agree to the</small> <a href="#" class="terms">Terms & Conditions</a></div>
+                <button class="btn btn-primary btn-block confirm-button">Confirmer</button>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+    </div>
+    </div>
+    <script src="{{ asset('assets/vendor/jquery/jquery.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        flatpickr('.flatpickr-date', {
+            enableTime: true,
+            defaultDate: 'today',
+            dateFormat: 'd-m-y H:i',
+            time_24hr: true
+        });
+    </script>
+        <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+        <div id="preloader"></div>
+{% endblock %}

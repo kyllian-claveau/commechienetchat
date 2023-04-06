@@ -1,0 +1,325 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <style>
+        body {
+            background: #e2eaef;
+            font-family: "Open Sans", sans-serif;
+        }
+
+        h2 {
+            margin-top: 150px !important;
+            color: #000;
+            font-size: 26px;
+            font-weight: 300;
+            text-align: center;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        h2::after {
+            content: "";
+            width: 100px;
+            position: absolute;
+            margin: 0 auto;
+            height: 4px;
+            border-radius: 1px;
+            background: #7ac400;
+            left: 0;
+            right: 0;
+            bottom: -20px;
+        }
+
+        .carousel {
+            margin: 50px auto;
+            padding: 0 70px;
+        }
+
+        .carousel .item {
+            color: #747d89;
+            min-height: 325px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .carousel .thumb-wrapper {
+            padding: 25px 15px;
+            background: #fff;
+            border-radius: 6px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .carousel .item .img-box {
+            height: 120px;
+            margin-bottom: 20px;
+            width: 100%;
+            position: relative;
+        }
+
+        .carousel .item img {
+            max-width: 100%;
+            max-height: 100%;
+            display: inline-block;
+            position: absolute;
+            bottom: 0;
+            margin: 0 auto;
+            left: 0;
+            right: 0;
+        }
+
+        .carousel .item h4 {
+            font-size: 18px;
+        }
+
+        .carousel .item h4, .carousel .item p, .carousel .item ul {
+            margin-bottom: 5px;
+        }
+
+        .carousel .thumb-content .btn {
+            color: #7ac400;
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: bold;
+            background: none;
+            border: 1px solid #7ac400;
+            padding: 6px 14px;
+            margin-top: 5px;
+            line-height: 16px;
+            border-radius: 20px;
+        }
+
+        .carousel .thumb-content .btn:hover, .carousel .thumb-content .btn:focus {
+            color: #fff;
+            background: #7ac400;
+            box-shadow: none;
+        }
+
+        .carousel .thumb-content .btn i {
+            font-size: 14px;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+
+        .carousel .item-price {
+            font-size: 13px;
+            padding: 2px 0;
+        }
+
+        .carousel .item-price strike {
+            opacity: 0.7;
+            margin-right: 5px;
+        }
+
+        .carousel .carousel-control.left i {
+            margin-left: -2px;
+        }
+
+        .carousel .carousel-control.right i {
+            margin-right: -4px;
+        }
+
+        .carousel .wish-icon {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            z-index: 99;
+            cursor: pointer;
+            font-size: 16px;
+            color: #abb0b8;
+        }
+
+        .carousel .wish-icon .fa-heart {
+            color: #ff6161;
+        }
+
+        .star-rating li {
+            padding: 0;
+        }
+
+        .star-rating i {
+            font-size: 14px;
+            color: #ffc000;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $(".wish-icon i").click(function () {
+                $(this).toggleClass("fa-heart fa-heart-o");
+            });
+        });
+    </script>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Liste des vétérinaires ayant le code postal<b> {{ app.request.get("zipcode") }}</b></h2>
+                <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="0">
+                    <!-- Wrapper for carousel items -->
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            {% for vet in vets %}
+                                <div class="row" style="margin-top:15px">
+                                    <div class="col-sm d-flex">
+                                        <div class="col-sm-3" style="float:left">
+                                            <div class="thumb-wrapper">
+                                                <span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+                                                <div class="img-box">
+                                                    {% if vet.avatarFilename is not null %}
+                                                        <img src="{{ asset("/avatar/"~vet.avatarFileName) }}"
+                                                             class="img-responsive"
+                                                             alt="{{ vet.name }}">
+                                                    {% else %}
+                                                        <img src="{{ asset("/assets/images/defaultVet.jpg") }}"
+                                                             alt="{{ vet.name }}"
+                                                             class="img-responsive">
+                                                    {% endif %}
+                                                </div>
+                                                <div class="thumb-content">
+                                                    <h4>{{ vet.name }}</h4>
+                                                    <div class="star-rating">
+                                                        <ul class="list-inline">
+                                                            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                            <li class="list-inline-item"><i class="fa fa-star-o"></i>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <p class="item-price"><b>Adresse : {{ vet.address }}</b></p>
+                                                    <p class="item-price"><b>Ville : {{ vet.city }}</b></p>
+                                                    <p class="item-price"><b>Code Postal : {{ vet.zipcode }}</b></p>
+                                                    {% if app.user %}
+                                                    {% else %}
+                                                        <a href="{{ path('app_login') }}" class="btn btn-primary">Connexion
+                                                            nécessaire !</a>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-9" style="float:right">
+                                            <div class="thumb-wrapper">
+                                                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                                    <div id="calendar-{{ vet.id }}"></div>
+                                                    <script>
+                                                        document.addEventListener('DOMContentLoaded', function () {
+                                                            const calendarEl = document.getElementById('calendar-{{ vet.id }}');
+
+                                                            const calendar = new FullCalendar.Calendar(calendarEl, {
+                                                                initialView: 'timeGridWeek', // afficher la vue hebdomadaire
+                                                                nowIndicator: true, // afficher une ligne verticale pour indiquer l'heure actuelle
+                                                                locale: 'fr',
+                                                                firstDay: 1,
+                                                                slotMinTime: '{{ vet.openingTime|date("H:i") }}', // Fait commencer le calendrier à 8h00
+                                                                slotMaxTime: '{{ vet.closingTime|date("H:i") }}', // Fait commencer le calendrier à 8h00
+                                                                height: '400px',
+                                                                headerToolbar: {
+                                                                    start: 'prev,next today', // boutons pour naviguer entre les semaines et revenir à la semaine en cours
+                                                                    center: 'title', // titre du calendrier (mois en cours)
+                                                                    end: 'timeGridDay,timeGridWeek,timeGridMonth' // boutons pour changer de vue
+                                                                },
+                                                                slotDuration: '{{ vet.appointmentDuration|date("H:i") }}', // durée de chaque intervalle horaire (30 minutes)
+                                                                slotLabelInterval: '{{ vet.appointmentDuration|date("H:i") }}', // intervalle entre les étiquettes horaires (1 heure)
+                                                                slotLabelContent: function (arg) {
+                                                                    const start = moment(arg.date).format('HH:mm'); // formatage de l'heure de début
+                                                                    const end = moment(arg.date).add(moment.duration('{{ vet.appointmentDuration|date("H:i") }}')).format('HH:mm'); // ajout de la durée de chaque créneau à l'heure de début et formatage de l'heure de fin
+                                                                    return `${start} - ${end}`; // retourne les deux heures formatées
+                                                                },
+                                                                now: new Date(), // définir l'heure actuelle
+                                                                businessHours: { // heures de travail (du lundi au vendredi de 9h à 18h)
+                                                                    daysOfWeek: [1, 2, 3, 4, 5, 6, 7], // du lundi au vendredi
+                                                                    startTime: '{{ vet.openingTime|date("H:i") }}', // heure de début
+                                                                    endTime: '{{ vet.closingTime|date("H:i") }}' // heure de fin
+                                                                },
+                                                                slotLabelFormat: {
+                                                                    hour: 'numeric',
+                                                                    minute: '2-digit',
+                                                                    omitZeroMinute: false,
+                                                                    meridiem: false
+                                                                },
+                                                                allDaySlot: false,
+                                                                timeFormat: 'HH:mm', // format 24 heures
+                                                                events: {url: '{{ path('vet_list_appointments',{id:vet.id}) }}'},
+                                                                selectable: true,
+                                                                select: function (info) {
+                                                                    const start = moment(info.start);
+                                                                    const end = moment(info.end);
+
+                                                                    // Pré-remplir le formulaire avec les informations sur le créneau
+                                                                    $('#start-time').val(start.format('DD-MM-YYYY HH:mm:ss'));
+                                                                    $('#start-time-display').text(start.format('DD-MM-YYYY HH:mm:ss'));
+                                                                    $('#end_time').val(end.format('DD-MM-YYYY HH:mm:ss'));
+                                                                    $('#end-time-display').text(end.format('DD-MM-YYYY HH:mm:ss'));
+                                                                    $('#appointment_appointmentDateTime').val(start.format('DD/MM/YYYY hh:mm'));
+                                                                    $("#appointment-form").attr('action', '{{ path('vet_list', {'zipcode': zipcode, 'id': vet.id}) }}');
+                                                                    $("#vet-name").text('{{ vet.name }}')
+                                                                    let slotDuration = '{{ vet.appointmentDuration|date("H:i") }}';
+                                                                    if (info.start.getMinutes() === 0) {
+                                                                        slotDuration = '{{ vet.appointmentDuration|date("H:i") }}';
+                                                                    }
+                                                                    if (slotDuration === '{{ vet.appointmentDuration|date("H:i") }}') { // Vérifier si la durée du slot sélectionné est de 30 minutes
+                                                                        calendar.unselect(); // Annuler la sélection pour que le slot reste cliquable
+                                                                        $('#myModal').modal('show');
+                                                                    }
+                                                                },
+                                                            });
+                                                            calendar.render();
+                                                        });
+                                                    </script>
+                                                {% else %}
+                                                    <p>Connectez vous !</p>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <p>Aucun vétérinaire disponible dans ce code postal!</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Prendre rendez-vous</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                {{ form_start(form, {'attr': {'id': 'appointment-form', 'onsubmit': 'enleverReadonly()'}}) }}
+                <div class="modal-body">
+                    <p>Prendre rendez-vous avec : <span id="vet-name"></span></p>
+                    <p>Date et heure de début du rendez-vous : <span id="start-time-display"></span></p>
+                    <p>Date et heure de fin du rendez-vous : <span id="end-time-display"></span></p>
+                    {{ form_widget(form.pet, {'attr': {'class': 'form-control-appointment','placeholder':'Choisissez votre animal*'}}) }}
+                    {{ form_widget(form.phone, {'attr': {'class': 'form-control-appointment','placeholder':'Numéro de téléphone*'}}) }}
+                    {{ form_widget(form.email, {'attr': {'class': 'form-control-appointment','placeholder':'Email'}}) }}
+                    {{ form_widget(form.description, {'attr': {'class': 'form-control-appointment','placeholder':'Quel est la raison du rendez-vous ?'}}) }}
+                    {{ form_widget(form.appointmentDateTime, {'attr': {'class': 'form-control-appointment','readonly': 'readonly'} }) }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button id="form_submit" type="submit" class="btn btn-primary" form="appointment-form">Prendre
+                        rendez-vous
+                    </button>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+    <script>
+        function enleverReadonly() {
+            let champ = document.getElementsByName("appointment[appointmentDateTime]")[0];
+            champ.removeAttribute("readonly");
+            return true;
+        }
+    </script>
+    <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <div id="preloader"></div>
+{% endblock %}

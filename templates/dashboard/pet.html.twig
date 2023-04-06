@@ -1,0 +1,336 @@
+<html lang="fr">
+{% include 'layouts/dashboard/head.html.twig' with {"title":"Tableau de bord | Profil"} %}
+{% block body %}
+    <body>
+    {% include "layouts/dashboard/header.html.twig" %}
+    <style>
+        h2 {
+            color: #000;
+            font-size: 26px;
+            font-weight: 300;
+            text-align: center;
+            text-transform: uppercase;
+            position: relative;
+            margin: 30px 0 60px;
+        }
+        h2::after {
+            content: "";
+            width: 100px;
+            position: absolute;
+            margin: 0 auto;
+            height: 4px;
+            border-radius: 1px;
+            background: #7ac400;
+            left: 0;
+            right: 0;
+            bottom: -20px;
+        }
+        .carousel {
+            margin: 50px auto;
+            padding: 0 70px;
+        }
+        .carousel .item {
+            color: #747d89;
+            min-height: 325px;
+            text-align: center;
+            overflow: hidden;
+        }
+        .carousel .thumb-wrapper {
+            padding: 25px 15px;
+            background: #fff;
+            border-radius: 6px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+        }
+        .carousel .item .img-box {
+            height: 120px;
+            margin-bottom: 20px;
+            width: 100%;
+            position: relative;
+        }
+        .carousel .item img {
+            max-width: 100%;
+            max-height: 100%;
+            display: inline-block;
+            position: absolute;
+            bottom: 0;
+            margin: 0 auto;
+            left: 0;
+            right: 0;
+        }
+        .carousel .item h4 {
+            font-size: 18px;
+        }
+        .carousel .item h4, .carousel .item p, .carousel .item ul {
+            margin-bottom: 5px;
+        }
+        .carousel .thumb-content .btn {
+            color: #7ac400;
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: bold;
+            background: none;
+            border: 1px solid #7ac400;
+            padding: 6px 14px;
+            margin-top: 5px;
+            line-height: 16px;
+            border-radius: 20px;
+        }
+        .carousel .thumb-content .btn:hover, .carousel .thumb-content .btn:focus {
+            color: #fff;
+            background: #7ac400;
+            box-shadow: none;
+        }
+        .carousel .thumb-content .btn i {
+            font-size: 14px;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+        .carousel .carousel-control {
+            height: 44px;
+            width: 40px;
+            background: #7ac400;
+            margin: auto 0;
+            border-radius: 4px;
+            opacity: 0.8;
+        }
+        .carousel .carousel-control:hover {
+            background: #78bf00;
+            opacity: 1;
+        }
+        .carousel .carousel-control i {
+            font-size: 36px;
+            position: absolute;
+            top: 50%;
+            display: inline-block;
+            margin: -19px 0 0 0;
+            z-index: 5;
+            left: 0;
+            right: 0;
+            color: #fff;
+            text-shadow: none;
+            font-weight: bold;
+        }
+        .carousel .item-price {
+            font-size: 13px;
+            padding: 2px 0;
+        }
+        .carousel .item-price strike {
+            opacity: 0.7;
+            margin-right: 5px;
+        }
+        .carousel .carousel-control.left i {
+            margin-left: -2px;
+        }
+        .carousel .carousel-control.right i {
+            margin-right: -4px;
+        }
+        .carousel .carousel-indicators {
+            bottom: -50px;
+        }
+        .carousel-indicators li, .carousel-indicators li.active {
+            width: 10px;
+            height: 10px;
+            margin: 4px;
+            border-radius: 50%;
+            border: none;
+        }
+        .carousel-indicators li {
+            background: rgba(0, 0, 0, 0.2);
+        }
+        .carousel-indicators li.active {
+            background: rgba(0, 0, 0, 0.6);
+        }
+        .carousel .wish-icon {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            z-index: 99;
+            cursor: pointer;
+            font-size: 16px;
+            color: #abb0b8;
+        }
+        .carousel .wish-icon .fa-heart {
+            color: #ff6161;
+        }
+        .star-rating li {
+            padding: 0;
+        }
+        .star-rating i {
+            font-size: 14px;
+            color: #ffc000;
+        }
+    </style>
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+
+        <ul class="sidebar-nav" id="sidebar-nav">
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ path("app_dashboard") }}">
+                    <i class="bi bi-grid"></i>
+                    <span>Tableau de bord</span>
+                </a>
+            </li><!-- End Dashboard Nav -->
+
+            <li class="nav-heading">Pages</li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ path("app_user_profile") }}">
+                    <i class="bi bi-person"></i>
+                    <span>Profil</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_add_pet') }}">
+                    <i class="bi bi-android"></i>
+                    <span>Mes animaux</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ path('app_appointment') }}">
+                    <i class="bi bi-android"></i>
+                    <span>Mon agenda</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ path('app_contact') }}">
+                    <i class="bi bi-envelope"></i>
+                    <span>Contact</span>
+                </a>
+            </li><!-- End Contact Page Nav -->
+        </ul>
+
+    </aside><!-- End Sidebar-->
+    <main id="main" class="main">
+
+        <div class="pagetitle">
+            <h1>Mes animaux</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}">Accueil</a></li>
+                    <li class="breadcrumb-item active">Mes animaux</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+        <section class="section dashboard">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Liste de vos animaux<b></b></h2>
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="0">
+                        <!-- Wrapper for carousel items -->
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <div class="row">
+                                    {% for pet in pets %}
+                                        <div class="col-sm-3">
+                                            <div class="thumb-wrapper">
+                                                <span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+                                                <div class="img-box">
+                                                    <img src="{{ asset("/avatar/pet/"~pet.avatarPetFileName) }}"
+                                                         class="img-responsive" width="150px"
+                                                         alt="{{ pet.name }}">
+                                                </div>
+                                                <div class="thumb-content">
+                                                    <h4>{{ pet.name }}</h4>
+                                                    <p class="item-price">
+                                                        <b>{{ pet.birthdayDate.diff(datetime).format('%y') }} ans</b>
+                                                    </p>
+                                                    <p class="item-price"><b>Race : {{ pet.breed }}</b></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                    <div class="col-sm-3">
+                                        <a href="#exampleModalCenter" data-bs-target="#exampleModalCenter"
+                                           data-bs-toggle="modal">
+                                            <div class="thumb-wrapper">
+                                                <span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+                                                <div class="img-box">
+                                                    <img src="{{ asset("assets/images/plus.png") }}"
+                                                         class="img-responsive" width="150px"
+                                                         alt="Ajouter votre animal">
+                                                </div>
+                                                <div class="thumb-content">
+                                                    <h4>Ajouter votre animal</h4>
+                                                    <p class="item-price">
+                                                        <b>Chien ou Chat</b>
+                                                    </p>
+                                                    <p class="item-price"><b>Tout est accepté</b></p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header ftco-degree-bg">
+                        <button type="button" class="close d-flex align-items-center justify-content-center"
+                                data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" class="bi bi-x-circle"></span>
+                        </button>
+                    </div>
+                    <div class="modal-body pt-md-0 pb-md-5 text-center">
+                        <h2>Ajouter un animal</h2>
+                        <div class="icon d-flex align-items-center justify-content-center">
+                            {{ form_start(form) }}
+                            <h4 class="mb-2">Photo de votre bête !</h4>
+                            {{ form_widget(form.avatarPetFile) }}
+                            <h4 class="mb-2">Nom Complet</h4>
+                            {{ form_widget(form.name) }}
+                            <h4 class="mb-2">Date de naissance</h4>
+                            {{ form_widget(form.birthdayDate) }}
+                            <h4 class="mb-2">Animal</h4>
+                            {{ form_widget(form.type) }}
+                            <h4 class="mb-2">Race</h4>
+                            {{ form_widget(form.breed) }}
+                            <button type="submit" class="btn btn-primary">Enregistrer les changements</button>
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- ======= Footer ======= -->
+    <footer id="footer" class="footer">
+        <div class="copyright">
+            &copy; Copyright <strong><span>CC&C</span></strong>. Tout Droit Réservé.
+        </div>
+    </footer><!-- End Footer -->
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+                class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="{{ asset("assets/vendor/apexcharts/apexcharts.min.js") }}"></script>
+    <script src="{{ asset("assets/vendor/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
+    <script src="{{ asset("assets/vendor/bootstrap/js/bootstrap.js") }}"></script>
+    <script src="{{ asset("assets/vendor/chart.js/chart.umd.js") }}"></script>
+    <script src="{{ asset("assets/vendor/echarts/echarts.min.js") }}"></script>
+    <script src="{{ asset("assets/vendor/quill/quill.min.js") }}"></script>
+    <script src="{{ asset("assets/vendor/simple-datatables/simple-datatables.js") }}"></script>
+    <script src="{{ asset("assets/vendor/tinymce/tinymce.min.js") }}"></script>
+    <script src={{ asset("assets/vendor/tinymce/tinymce.min.js") }}></script>
+    <script src="{{ asset("assets/vendor/php-email-form/validate.js") }}"></script>
+    <script src="{{ asset("assets/vendor/jquery/jquery.js") }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.4.4/umd/popper.min.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="{{ asset("assets/js/dashboard/main.js") }}"></script>
+
+    </body>
+{% endblock %}
+</html>

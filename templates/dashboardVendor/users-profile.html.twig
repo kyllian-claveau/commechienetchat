@@ -1,0 +1,437 @@
+{% extends 'baseDashboard.html.twig' %}
+{% block content %}
+
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+
+        <ul class="sidebar-nav" id="sidebar-nav">
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ path("app_vendor_dashboard") }}">
+                    <i class="bi bi-grid"></i>
+                    <span>Tableau de bord</span>
+                </a>
+            </li><!-- End Dashboard Nav -->
+
+            <li class="nav-heading">Pages</li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path("app_vendor_profile") }}">
+                    <i class="bi bi-person"></i>
+                    <span>Profil</span>
+                </a>
+            </li><!-- End Profile Page Nav -->
+
+
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ path('app_vendor_calendar') }}">
+                    <i class="bi bi-android"></i>
+                    <span>Calendrier</span>
+                </a>
+            </li><!-- End F.A.Q Page Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ path('app_vendor_horaires') }}">
+                    <i class="bi bi-alarm"></i>
+                    <span>Ouverture / Fermeture</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ path('app_contact') }}">
+                    <i class="bi bi-envelope"></i>
+                    <span>Contact</span>
+                </a>
+            </li><!-- End Contact Page Nav -->
+        </ul>
+
+    </aside><!-- End Sidebar-->
+
+    <main id="main" class="main">
+
+        <div class="pagetitle">
+            <h1>Profil</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Accueil</a></li>
+                    <li class="breadcrumb-item active">Profil</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+
+        <section class="section profile">
+            <div class="row">
+                <div class="col-xl-4">
+
+                    <div class="card">
+                        <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+{% if app.user.avatarFilename is not null %}
+                            <img src="{{ asset("/avatar/"~app.user.avatarFilename) }}" alt="Profile"
+                                 class="rounded-circle">
+                            {% else %}
+                                <img src="{{ asset("assets/images/defaultVet.jpg") }}" alt="Profile"
+                                     class="rounded-circle">
+                            {% endif %}
+                            <h2>{{ app.user.name }}</h2>
+                            <h3>{{ app.user.job }}</h3>
+                            <div class="social-links mt-2">
+                                {% if app.user.facebook is not null %}
+                                <a href="{{ app.user.facebook }}" class="facebook"><i class="bi bi-facebook"></i></a>
+                                {% else %}
+                                {% endif %}
+                                {% if app.user.instagram is not null %}
+                                <a href="{{ app.user.instagram }}" class="instagram"><i class="bi bi-instagram"></i></a>
+                                {% else %}
+                                {% endif %}
+                                {% if app.user.linkedin is not null %}
+                                <a href="{{ app.user.linkedin }}" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                                {% else %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-xl-8">
+
+                    <div class="card">
+                        <div class="card-body pt-3">
+                            <!-- Bordered Tabs -->
+                            <ul class="nav nav-tabs nav-tabs-bordered" role="tablist">
+
+                                <li class="nav-item">
+                                    <a href="#profile-overview"
+                                       class="nav-link active a-tab-nav" data-bs-toggle="tab"
+                                       data-bs-target="#profile-overview">Résumé</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link a-tab-nav" data-bs-toggle="tab" href="#profile-edit"
+                                       data-bs-target="#profile-edit">Modifier votre profil</a>
+                                </li>
+
+                                <!--<li class="nav-item">
+                                    <a class="nav-link a-tab-nav" data-bs-toggle="tab"
+                                       href="#profile-settings" data-bs-target="#profile-settings">Paramètres</a>
+                                </li>-->
+
+                                <li class="nav-item">
+                                    <a class="nav-link a-tab-nav" data-bs-toggle="tab"
+                                       href="#profile-change-password" data-bs-target="#profile-change-password">Changez votre mot de passe</a>
+                                </li>
+
+                            </ul>
+                            <div class="tab-content pt-2">
+
+                                <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                                    <h5 class="card-title">A Propos</h5>
+                                    <p class="small fst-italic">{{ app.user.about }}</p>
+                                    <h5 class="card-title">Détails du Profil</h5>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label ">Nom Complet</div>
+                                        <div class="col-lg-9 col-md-8">{{ app.user.name }}</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Entreprise</div>
+                                        <div class="col-lg-9 col-md-8">{{ app.user.company }}</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Métier</div>
+                                        <div class="col-lg-9 col-md-8">{{ app.user.job }}</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Pays</div>
+                                        <div class="col-lg-9 col-md-8">{{ app.user.country }}</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Adresse</div>
+                                        <div class="col-lg-9 col-md-8">{{ app.user.address }}</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Code Postal</div>
+                                        <div class="col-lg-9 col-md-8">{{ app.user.zipcode }}</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Téléphone</div>
+                                        <div class="col-lg-9 col-md-8">{{ app.user.phone }}</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Email</div>
+                                        <div class="col-lg-9 col-md-8">{{ app.user.email }}</div>
+                                    </div>
+
+                                </div>
+
+                                <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+
+                                    <!-- Profile Edit Form -->
+                                    {{ form_start(form) }}
+                                    <div class="row mb-3">
+                                        <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Image du profil</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            {{ form_widget(form.avatarFile, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Nom
+                                            Complet</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="about" class="col-md-4 col-lg-3 col-form-label">A Propos</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            {{ form_widget(form.about, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="company" class="col-md-4 col-lg-3 col-form-label">Entreprise</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            {{ form_widget(form.company, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="Job" class="col-md-4 col-lg-3 col-form-label">Métier</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            {{ form_widget(form.job, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="Country" class="col-md-4 col-lg-3 col-form-label">Pays</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            {{ form_widget(form.country, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="Address" class="col-md-4 col-lg-3 col-form-label">Adresse</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            {{ form_widget(form.address, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="Zipcode" class="col-md-4 col-lg-3 col-form-label">Code Postal</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            {{ form_widget(form.zipcode, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="City" class="col-md-4 col-lg-3 col-form-label">Ville</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            {{ form_widget(form.city, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Téléphone</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            {{ form_widget(form.phone, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="Twitter" class="col-md-4 col-lg-3 col-form-label">Twitter</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            {{ form_widget(form.twitter, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="Facebook" class="col-md-4 col-lg-3 col-form-label">Facebook</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            {{ form_widget(form.facebook, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="Instagram"
+                                               class="col-md-4 col-lg-3 col-form-label">Instagram</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            {{ form_widget(form.instagram, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="Linkedin" class="col-md-4 col-lg-3 col-form-label">Linkedin</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            {{ form_widget(form.linkedin, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-primary">Enregistrer les changements
+                                        </button>
+                                    </div>
+                                    {{ form_end(form) }}
+                                </div>
+
+                                <!-- <div class="tab-pane fade pt-3" id="profile-settings">
+
+                                      Settings Form
+                                    <form>
+
+                                        <div class="row mb-3">
+                                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Email
+                                                Notifications</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="changesMade"
+                                                           checked>
+                                                    <label class="form-check-label" for="changesMade">
+                                                        Changes made to your account
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="newProducts"
+                                                           checked>
+                                                    <label class="form-check-label" for="newProducts">
+                                                        Information on new products and services
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="proOffers">
+                                                    <label class="form-check-label" for="proOffers">
+                                                        Marketing and promo offers
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="securityNotify"
+                                                           checked disabled>
+                                                    <label class="form-check-label" for="securityNotify">
+                                                        Security alerts
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                                        </div>
+                                    </form> End settings Form
+                                </div>-->
+
+                                <div class="tab-pane fade pt-3" id="profile-change-password">
+                                    <!-- Change Password Form -->
+                                    {{ form_start(formPassword) }}
+
+                                    <div class="row mb-3">
+                                        <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Mot de
+                                            passe actuel</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            {{ error }}
+                                            {{ form_widget(formPassword.oldPassword, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">Nouveau <br>mot de
+                                            passe</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            {{ form_widget(formPassword.newPassword.first, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">Confirmation
+                                           <br>mot de passe</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            {{ form_widget(formPassword.newPassword.second, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        {{ form_widget(formPassword.save, {'attr': {'class': 'btn btn-primary'}}) }}
+                                    </div>
+                                    {{ form_end(formPassword) }}<!-- End Change Password Form -->
+
+                                </div>
+
+                            </div><!-- End Bordered Tabs -->
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main><!-- End #main -->
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+                class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src={{ asset("assets/vendor/apexcharts/apexcharts.min.js") }}></script>
+    <script src={{ asset("assets/vendor/bootstrap/js/bootstrap.bundle.min.js") }}></script>
+    <script src={{ asset("assets/vendor/chart.js/chart.umd.js") }}></script>
+    <script src={{ asset("assets/vendor/echarts/echarts.min.js") }}></script>
+    <script src={{ asset("assets/vendor/quill/quill.min.js") }}></script>
+    <script src={{ asset("assets/vendor/simple-datatables/simple-datatables.js") }}></script>
+    <script src={{ asset("assets/vendor/tinymce/tinymce.min.js") }}></script>
+    <script src={{ asset("assets/vendor/php-email-form/validate.js") }}></script>
+    <script src="{{ asset('assets/vendor/jquery/jquery.js') }}"></script>
+    <!-- Template Main JS File -->
+    <script src={{ asset("assets/js/main.js") }}></script>
+    <script>
+        $('.a-tab-nav').on('click', function(event) {
+            let target = $(event.target);
+            history.pushState(null, null, target.attr('href'));
+
+        });
+        $(document).ready(function() {
+            let hash = window.location.hash;
+            if (hash === "") {
+                return;
+            }
+            $('.nav-tabs a[href="' + hash + '"]').tab('show');
+        });
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBB0fquFJ3W8edTFnSfD1HOswuDynGIr-U&libraries=places&callback=Function.prototype"></script>
+    <script>
+        var input = document.getElementById('edit_profile_form_address');
+        var autocomplete = new google.maps.places.Autocomplete(input,{componentRestrictions: { country: 'fr' }});
+
+        autocomplete.setFields(['address_components', 'geometry']);
+        autocomplete.setTypes(['address']);
+
+        autocomplete.addListener('place_changed', function() {
+            var place = autocomplete.getPlace();
+
+            document.getElementById('edit_profile_form_city').value = getAddressComponent(place, 'locality');
+            document.getElementById('edit_profile_form_zipcode').value = getAddressComponent(place, 'postal_code');
+        });
+
+        function getAddressComponent(place, type) {
+            for (var i = 0; i < place.address_components.length; i++) {
+                var component = place.address_components[i];
+                if (component.types.indexOf(type) !== -1) {
+                    return component.long_name;
+                }
+            }
+            return '';
+        }
+    </script>
+{% endblock %}

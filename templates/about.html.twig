@@ -1,0 +1,122 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+    <main id="main">
+
+        <!-- ======= Breadcrumbs ======= -->
+        <div class="breadcrumbs">
+            <div class="page-header d-flex align-items-center"
+                 style="background-image: url('/assets/images/about_topbanner.jpg');">
+                <div class="container position-relative">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-lg-6 text-center">
+                            <h2>À Propos</h2>
+                            <p>Apprenez en un peu plus sur CC&C !</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nav>
+                <div class="container">
+                    <ol>
+                        <li><a href="{{ path('app_home_index') }}">Accueil</a></li>
+                        <li>À Propos</li>
+                    </ol>
+                </div>
+            </nav>
+        </div><!-- End Breadcrumbs -->
+
+        <!-- ======= About Us Section ======= -->
+        <section id="about" class="about pt-0">
+            <div class="container" data-aos="fade-up">
+                <h2 style="font-weight:bold;color:blue;text-align:center;margin-top:30px;margin-bottom:20px;">Bienvenue
+                    sur notre site de prise de rendez-vous chez les vétérinaires !</h2>
+                <div class="row gy-4">
+                    <div class="col-lg-6 position-relative align-self-start order-lg-last order-first">
+                        <img src="{{ asset('/assets/images/dog_about.jpg') }}" class="img-fluid" alt="" style="border-radius:20px">
+                    </div>
+                    <div class="col-lg-6 content order-last  order-lg-first" style="align-self: center">
+                        <p>
+                            Notre plateforme est conçue pour vous simplifier la vie en vous permettant de prendre
+                            rendez-vous chez un vétérinaire en quelques clics. Plus besoin d'attendre des heures au
+                            téléphone ou de faire la queue à la clinique pour obtenir un rendez-vous. Avec notre système
+                            de réservation en ligne, vous pouvez facilement choisir le vétérinaire, la date et l'heure
+                            qui vous conviennent le mieux, en fonction de votre emploi du temps.
+                            <br><br>
+                            Nous comprenons que la santé de votre animal de compagnie est une priorité absolue, c'est
+                            pourquoi nous avons rassemblé une équipe de vétérinaires professionnels et expérimentés qui
+                            sont passionnés par leur travail. Nos vétérinaires sont spécialisés dans une variété de
+                            domaines, allant des soins de routine aux traitements plus spécialisés. Vous pouvez être sûr
+                            que votre animal de compagnie est entre de bonnes mains avec nous.
+                            <br><br>
+                            Nous savons que chaque animal de compagnie est unique et que leurs besoins en matière de
+                            santé sont différents. C'est pourquoi nous offrons une gamme complète de services
+                            vétérinaires, y compris des examens de santé réguliers, des vaccinations, des soins
+                            dentaires, des chirurgies, des consultations spécialisées et plus encore. Nous sommes là
+                            pour vous aider à maintenir votre animal en bonne santé et heureux.
+                            <br><br>
+                            Notre site est facile à utiliser et accessible 24h/24 et 7j/7, vous pouvez donc prendre
+                            rendez-vous à tout moment, où que vous soyez.
+                            <br><br>
+                            Nous sommes là pour vous accompagner tout au long du processus de prise de rendez-vous et
+                            pour répondre à toutes les questions que vous pourriez avoir. Nous sommes engagés à fournir
+                            un service clientèle exceptionnel et à assurer la satisfaction de nos clients et de leurs
+                            animaux de compagnie.
+                        </p>
+                    </div>
+                </div>
+                <img src="{{ asset('/assets/images/ccc_banner.png') }}" class="img-fluid" alt=""
+                     style="margin-top: 50px;margin-bottom: 50px; border-radius: 20px">
+                <div class="row gy-4">
+                    <div class="col-lg-6 position-relative align-self-start order-lg-last order-first" style="align-self: center">
+                        <p>
+                            Notre site de prise de rendez-vous chez le vétérinaire a été créé par une personne qui aime
+                            profondément les animaux et qui se bat pour leur bien-être. Pour cette raison, nous avons
+                            développé une plateforme en ligne pour aider les propriétaires d'animaux à prendre soin de
+                            leurs compagnons de manière plus facile et pratique.
+                            <br><br>
+                            Nous sommes conscients que la santé des animaux est une question primordiale pour tous les
+                            propriétaires responsables, et que la planification des rendez-vous chez le vétérinaire peut
+                            être un processus fastidieux et stressant. C'est pourquoi nous avons voulu créer une
+                            solution simple, rapide et facile à utiliser pour les propriétaires d'animaux afin qu'ils
+                            puissent obtenir des soins de santé de qualité pour leurs animaux de compagnie.
+                            <br><br>
+                            Nous avons investi beaucoup de temps et d'efforts pour créer une plateforme en ligne
+                            efficace qui offre une variété de services vétérinaires de haute qualité. Nous nous
+                            engageons à fournir des soins de santé de qualité supérieure à tous les animaux qui nous
+                            sont confiés et à garantir la satisfaction de nos clients et de leurs compagnons à quatre
+                            pattes.
+                            <br><br>
+                            Notre passion pour les animaux nous pousse à continuer à améliorer nos services et à
+                            développer de nouvelles fonctionnalités pour répondre aux besoins de nos clients et de leurs
+                            animaux. Nous sommes déterminés à faire une différence positive dans la vie des animaux et
+                            de leurs propriétaires et à encourager les propriétaires d'animaux à prendre soin de leurs
+                            animaux de compagnie de la meilleure manière possible.
+                            <br><br>
+                            Nous sommes fiers de notre travail et nous sommes honorés de pouvoir aider les propriétaires
+                            d'animaux à prendre soin de leurs compagnons. Nous espérons que notre site de prise de
+                            rendez-vous chez le vétérinaire vous sera utile et nous sommes impatients de vous aider à
+                            prendre soin de votre animal de compagnie.
+                        </p>
+                    </div>
+                    <div class="col-lg-6 content order-last  order-lg-first">
+                        <img src="{{ asset('/assets/images/cat_about.jpg') }}" class="img-fluid" alt="" style="border-radius:20px">
+                    </div>
+                </div>
+            </div>
+        </section><!-- End About Us Section -->
+    </main><!-- End #main -->
+    <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <div id="preloader"></div>
+
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="assets/vendor/aos/aos.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+{% endblock %}

@@ -1,0 +1,109 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+    <main id="main">
+        <!-- ======= Breadcrumbs ======= -->
+        <div class="breadcrumbs">
+            <div class="page-header d-flex align-items-center"
+                 style="background-image: url('{{ asset('assets/images/about_topbanner.jpg') }}');">
+                <div class="container position-relative">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-lg-6 text-center">
+                            <h2>CGU</h2>
+                            <p>Conditions Générales d'Utiliosation</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nav>
+                <div class="container">
+                    <ol>
+                        <li><a href="{{ path('app_home_index') }}">Accueil</a></li>
+                        <li>CGU</li>
+                    </ol>
+                </div>
+            </nav>
+        </div><!-- End Breadcrumbs -->
+
+        <!-- ======= About Us Section ======= -->
+        <section id="about" class="about pt-0">
+            <div class="container" data-aos="fade-up">
+                <h1 class="text-center">Conditions Générales d'Utilisation (CGU)</h1>
+                <h6>1/ Introduction</h6>
+                <p>Bienvenue sur notre site de prise de rendez-vous chez le vétérinaire pour les chiens et les chats. En
+                    utilisant notre site, vous acceptez les présentes Conditions Générales d'Utilisation (CGU), qui
+                    régissent votre utilisation du site. Si vous n'acceptez pas les CGU, veuillez ne pas utiliser notre
+                    site.</p>
+
+                <h6>2/ Utilisation du site</h6>
+                <p>Notre site est destiné à faciliter la prise de rendez-vous chez le vétérinaire pour les chiens et les
+                    chats. L'utilisation de notre site est réservée aux personnes âgées de 18 ans et plus. Si vous avez
+                    moins de 18 ans, vous devez obtenir l'autorisation de vos parents ou de votre tuteur légal avant
+                    d'utiliser notre site.</p>
+
+                <h6>3/ Création d'un compte</h6>
+                <p>Pour utiliser notre site et prendre rendez-vous chez un vétérinaire, vous devez créer un compte en
+                    fournissant des informations précises et à jour, notamment votre nom, votre adresse e-mail et vos
+                    informations de paiement le cas échéant. Vous êtes responsable de la confidentialité de votre compte
+                    et de votre mot de passe et vous devez signaler immédiatement toute utilisation non autorisée de
+                    votre compte.</p>
+
+                <h6>4/ Prise de rendez-vous</h6>
+                <p>La prise de rendez-vous chez un vétérinaire via notre site est soumise à la disponibilité du
+                    vétérinaire. Nous ne pouvons pas garantir que vous obtiendrez un rendez-vous à la date et à l'heure
+                    que vous souhaitez. Nous ne sommes pas responsables des frais ou des dommages que vous pourriez
+                    subir en cas d'impossibilité de prendre un rendez-vous chez un vétérinaire.</p>
+
+                <h6>5/ Paiement</h6>
+                <p>Tout paiement auront lieu chez le vétérinaire. La prise de rendez-vous est totalement gratuite mais
+                    le vétérinaire se réserve le droit de vous préléver si vous manquez le rendez-vous.</p>
+
+                <h6>6/ Annulation de rendez-vous</h6>
+                <p>Si vous devez annuler un rendez-vous chez un vétérinaire, vous devez le faire le plus tôt possible.
+                    Si vous annulez un rendez-vous avec un préavis insuffisant ou si vous ne vous présentez pas à un
+                    rendez-vous, vous pouvez être facturé pour les frais de rendez-vous.</p>
+
+                <h6>7/ Responsabilité</h6>
+                <p>Nous ne sommes pas responsables des dommages, pertes ou préjudices que vous pourriez subir en
+                    utilisant notre site. Nous ne sommes pas responsables des actes ou omissions du vétérinaire que vous
+                    consultez. Nous ne sommes pas responsables des retards ou des interruptions du site dus à des
+                    événements indépendants de notre volonté.</p>
+
+                <h6>8/ Modifications des CGU</h6>
+                <p>Nous nous réservons le droit de modifier les présentes CGU à tout moment et sans préavis. Veuillez
+                    consulter régulièrement les CGU pour vous assurer que vous êtes informé des dernières
+                    modifications.</p>
+
+                <h6>9/ Propriété intellectuelle</h6>
+                <p>Notre site, son contenu et tous les droits de propriété intellectuelle y afférents (y compris, mais
+                    sans s'y limiter, les droits d'auteur, les marques de commerce, les brevets et les secrets
+                    commerciaux) sont la propriété exclusive de notre société. Vous ne pouvez pas utiliser, copier,
+                    reproduire, distribuer, transmettre, afficher, vendre, concéder sous licence ou exploiter de quelque
+                    manière que ce soit notre site ou son contenu sans notre consentement préalable écrit.</p>
+
+                <h6>10/ Confidentialité des données</h6>
+                <p>Nous nous engageons à protéger la confidentialité des données personnelles que vous nous fournissez.
+                    Nous collectons et utilisons vos données personnelles conformément à notre politique de
+                    confidentialité, que vous pouvez consulter sur notre site.</p>
+
+                <h6>11/ Résiliation</h6>
+                <p>Nous nous réservons le droit de résilier votre compte et votre accès à notre site à tout moment et
+                    pour quelque raison que ce soit, sans préavis ni responsabilité envers vous.</p>
+
+                <h6>12/ Indépendance des clauses</h6>
+                <p>Si une disposition des présentes CGU est jugée invalide, illégale ou inapplicable par un tribunal
+                    compétent, cette disposition sera considérée comme étant dissociée des présentes CGU, mais les
+                    autres dispositions resteront en vigueur.</p>
+
+                <h6>13/ Langue</h6>
+                <p>Les présentes CGU sont rédigées en langue française. Si elles sont traduites en une autre langue et
+                    qu'il y a une incohérence entre la version française et la version traduite, la version française
+                    prévaudra.</p>
+
+                <h6>14/ Contact</h6>
+                <p>Si vous avez des questions ou des préoccupations concernant les présentes CGU, veuillez nous
+                    contacter à l'adresse électronique fournie sur notre site. Nous ferons de notre mieux pour répondre
+                    à vos préoccupations dans les plus brefs délais. </p>
+            </div>
+        </section>
+    </main>
+{% endblock %}

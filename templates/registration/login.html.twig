@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+	<div class="section loginpage">
+		<div class="container">
+			<div class="row full-height justify-content-center">
+				<div class="col-12 text-center align-self-center py-5" style="margin-top:100px;">
+					<div class="section pb-5 pt-5 pt-sm-2 text-center">
+						<h6 class="mb-0 pb-3"><span><a href="{{ path('app_vendor_login') }}">-> Se connecter en tant que Vétérinaire <-</a></span></h6>
+						<div class="card-3d-wrap mx-auto">
+							<div class="card-3d-wrapper">
+								<div class="card-front">
+									<div class="center-wrap">
+										<div class="section text-center">
+											<h4 class="mb-4 pb-3">Je suis Client</h4>
+											{{ form_start(loginForm) }}
+											<div class="form-group-login mt-2">
+												{{ form_label(loginForm._username,"Email") }}
+												{{ form_widget(loginForm._username, {'attr': {'class': 'form-style'}}) }}
+											</div>
+											<div class="form-group-login mt-2">
+												{{ form_label(loginForm._password,"Mot de passe") }}
+												{{ form_widget(loginForm._password, {'attr': {'class': 'form-style'}}) }}
+											</div>
+											<button type="submit" class="btn mt-4">Envoyer !</button>
+											{{ form_end(loginForm) }}
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
