@@ -13,5 +13,4 @@ class AuthenticationController
     {
         throw new \RuntimeException('Should never be called');
     }
-
 }
