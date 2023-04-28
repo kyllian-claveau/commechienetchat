@@ -63,20 +63,19 @@ class MessageController extends AbstractController
             'errors' => $errors,
         ]);
     }
-
     #[Route('/messages/list/{id}')]
     public function listMessages(EntityManagerInterface $entityManager, int $id): JsonResponse
     {
         $currentUser = $this->getUser();
 
         if ($currentUser instanceof Vendor) {
-            $vendor = $currentUser;
-            $user = $entityManager->getRepository(User::class)->find($id);
-        } else if ($currentUser instanceof User) {
-            $user = $currentUser;
-            $vendor = $entityManager->getRepository(Vendor::class)->find($id);
-        } else {
-            throw new \RuntimeException('Should never happen');
+                $vendor = $currentUser;
+                $user = $entityManager->getRepository(User::class)->find($id);
+            } else if ($currentUser instanceof User) {
+                $user = $currentUser;
+                $vendor = $entityManager->getRepository(Vendor::class)->find($id);
+            } else {
+                throw new \RuntimeException('Should never happen');
         }
 
         $messages = $entityManager->getRepository(Message::class)->findBy([
@@ -101,4 +100,34 @@ class MessageController extends AbstractController
             'messages' => $messagesJson,
         ]);
     }
+
+    #[Route('/usersorvendors/list')]
+    public function listUsersOrVendors(EntityManagerInterface $entityManager)
+    {
+        $currentUser = $this->getUser();
+
+        if ($currentUser instanceof Vendor) {
+            $usersOrVendors = $entityManager->getRepository(User::class)->findAll();
+        } elseif ($currentUser instanceof User) {
+            $usersOrVendors = $entityManager->getRepository(Vendor::class)->findAll();
+        } else {
+            throw new \RuntimeException('Should never happen');
+        }
+
+        $usersOrVendorsJson = [];
+
+        foreach($usersOrVendors as $userOrVendor) {
+            $usersOrVendorsJson[] = [
+                'id' => $userOrVendor->getId(),
+                'name' => $userOrVendor->getName(),
+                'email' => $userOrVendor->getEmail(),
+                'type' => ($userOrVendor instanceof Vendor) ? 'ROLE_VENDOR' : 'ROLE_USER',
+            ];
+        }
+
+        return $this->json([
+            'usersOrVendors' => $usersOrVendorsJson,
+        ]);
+    }
+
 }
