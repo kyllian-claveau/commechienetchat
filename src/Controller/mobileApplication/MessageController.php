@@ -137,34 +137,29 @@ class MessageController extends AbstractController
 
         if ($currentUser instanceof Vendor) {
             $conversations = $entityManager->createQuery('
-        SELECT m.id, u.id as userId, u.name as userName, u.email as userEmail, MAX(m.createdAt) as lastMessageDate, COUNT(m.id) as messageCount
-        FROM App\Entity\Message m
-        JOIN m.user u
-        WHERE m.vendor = :vendor
-        GROUP BY u.id, u.name, u.email, m.id
-    ')
+            SELECT m.id, u.id as userId, u.name as userName, u.email as userEmail, MAX(m.createdAt) as lastMessageDate, COUNT(m.id) as messageCount
+            FROM App\Entity\Message m
+            JOIN m.user u
+            WHERE m.vendor = :vendor
+            GROUP BY u.id, u.name, u.email, m.id
+        ')
                 ->setParameter('vendor', $currentUser)
                 ->getResult();
-
-            $userType = 'vendor'; // Ajouter une variable pour stocker le type d'utilisateur
         } elseif ($currentUser instanceof User) {
             $conversations = $entityManager->createQuery('
-        SELECT m.id, v.id as vendorId, v.name as vendorName, v.email as vendorEmail, MAX(m.createdAt) as lastMessageDate, COUNT(m.id) as messageCount
-        FROM App\Entity\Message m
-        JOIN m.vendor v
-        WHERE m.user = :user
-        GROUP BY v.id, v.name, v.email, m.id
-    ')
+            SELECT m.id, v.id as vendorId, v.name as vendorName, v.email as vendorEmail, MAX(m.createdAt) as lastMessageDate, COUNT(m.id) as messageCount
+            FROM App\Entity\Message m
+            JOIN m.vendor v
+            WHERE m.user = :user
+            GROUP BY v.id, v.name, v.email, m.id
+        ')
                 ->setParameter('user', $currentUser)
                 ->getResult();
-
-            $userType = 'user'; // Ajouter une variable pour stocker le type d'utilisateur
         } else {
             throw new \RuntimeException('Should never happen');
         }
 
         return $this->json([
-            'userType' => $userType, // Ajouter le type d'utilisateur dans la réponse JSON
             'conversations' => $conversations,
         ]);
     }
