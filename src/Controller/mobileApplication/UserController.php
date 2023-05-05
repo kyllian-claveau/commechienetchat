@@ -42,27 +42,34 @@ class UserController extends AbstractController
     {
         $currentUser = $this->getUser();
 
-        if (!$currentUser instanceof User) {
-            throw new \RuntimeException('Only users can modify their information');
+        if ($currentUser instanceof Vendor) {
+            $userOrVendor = $entityManager->getRepository(Vendor::class)->find($currentUser->getId());
+        } elseif ($currentUser instanceof User) {
+            $userOrVendor = $entityManager->getRepository(User::class)->find($currentUser->getId());
+        } else {
+            throw new \RuntimeException('Should never happen');
         }
 
-        $data = json_decode($request->getContent(), true);
+        $requestData = json_decode($request->getContent(), true);
 
-        // Modifier les champs de l'utilisateur avec les données de la requête
-        $currentUser->setName($data['nom']);
-        $currentUser->setEmail($data['email']);
+        if (isset($requestData['name'])) {
+            $userOrVendor->setName($requestData['name']);
+        }
 
-        // Enregistrer les modifications dans la base de données
-        $entityManager->persist($currentUser);
+        if (isset($requestData['email'])) {
+            $userOrVendor->setEmail($requestData['email']);
+        }
+
         $entityManager->flush();
 
+        $userOrVendorInformationJson = [
+            'id' => $userOrVendor->getId(),
+            'name' => $userOrVendor->getName(),
+            'email' => $userOrVendor->getEmail(),
+        ];
+
         return $this->json([
-            'message' => 'User information updated successfully',
-            'user' => [
-                'id' => $currentUser->getId(),
-                'name' => $currentUser->getName(),
-                'email' => $currentUser->getEmail(),
-            ],
+            'userOrVendorInformation' => $userOrVendorInformationJson,
         ]);
     }
 
