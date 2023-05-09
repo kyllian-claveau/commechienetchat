@@ -108,13 +108,13 @@ class MessageController extends AbstractController
                 'sent_by_current_user' => $sentByCurrentUser,
                 'user_name' => $userName,
                 'vendor_name' => $vendorName,
-                'currentUserRole' => $currentUserType,
-                'contact_name' => $contactName // Ajoute le nom du contact
+                'currentUserRole' => $currentUserType
             ];
         }
 
         return $this->json([
             'messages' => $messagesJson,
+            'contactName' => $contactName
         ]);
     }
 
