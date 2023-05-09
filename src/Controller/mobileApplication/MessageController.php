@@ -67,11 +67,12 @@ class MessageController extends AbstractController
     public function listMessages(EntityManagerInterface $entityManager, int $id): JsonResponse
     {
         $currentUser = $this->getUser();
+        $userRole = $currentUser->getRoles()[0];
 
-        if ($currentUser instanceof Vendor) {
+        if ($userRole === 'ROLE_VENDOR') {
             $vendor = $currentUser;
             $user = $entityManager->getRepository(User::class)->find($id);
-        } else if ($currentUser instanceof User) {
+        } else if ($userRole === 'ROLE_USER') {
             $user = $currentUser;
             $vendor = $entityManager->getRepository(Vendor::class)->find($id);
         } else {
@@ -100,6 +101,7 @@ class MessageController extends AbstractController
             'messages' => $messagesJson,
         ]);
     }
+
 
     #[Route('/usersorvendors/list')]
     public function listUsersOrVendors(EntityManagerInterface $entityManager)
