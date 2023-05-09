@@ -67,12 +67,11 @@ class MessageController extends AbstractController
     public function listMessages(EntityManagerInterface $entityManager, int $id): JsonResponse
     {
         $currentUser = $this->getUser();
-        $userRole = $currentUser->getRoles()[0];
 
-        if ($userRole === 'ROLE_VENDOR') {
+        if ($currentUser instanceof Vendor) {
             $vendor = $currentUser;
             $user = $entityManager->getRepository(User::class)->find($id);
-        } else if ($userRole === 'ROLE_USER') {
+        } else if ($currentUser instanceof User) {
             $user = $currentUser;
             $vendor = $entityManager->getRepository(Vendor::class)->find($id);
         } else {
@@ -87,6 +86,13 @@ class MessageController extends AbstractController
         $messagesJson = [];
 
         foreach($messages as $message) {
+            $sentByCurrentUser = false;
+            if ($currentUser instanceof Vendor && $message->getSenderType() === 'VENDOR' && $message->getVendor()->getId() === $currentUser->getId()) {
+                $sentByCurrentUser = true;
+            } elseif ($currentUser instanceof User && $message->getSenderType() === 'USER' && $message->getUser()->getId() === $currentUser->getId()) {
+                $sentByCurrentUser = true;
+            }
+
             $messagesJson[] = [
                 'id' => $message->getId(),
                 'vendor_id' => $message->getVendor()->getId(),
@@ -94,6 +100,7 @@ class MessageController extends AbstractController
                 'message' => $message->getMessage(),
                 'created_at' => $message->getCreatedAt()->format(DATE_ATOM),
                 'sender_type' => $message->getSenderType(),
+                'sent_by_current_user' => $sentByCurrentUser
             ];
         }
 
@@ -101,6 +108,7 @@ class MessageController extends AbstractController
             'messages' => $messagesJson,
         ]);
     }
+
 
 
     #[Route('/usersorvendors/list')]
