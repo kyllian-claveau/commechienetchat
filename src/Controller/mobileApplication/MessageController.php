@@ -72,9 +72,11 @@ class MessageController extends AbstractController
         if ($currentUser instanceof Vendor) {
             $vendor = $currentUser;
             $user = $entityManager->getRepository(User::class)->find($id);
+            $contactName = $user->getName();
         } else if ($currentUser instanceof User) {
             $user = $currentUser;
             $vendor = $entityManager->getRepository(Vendor::class)->find($id);
+            $contactName = $vendor->getName();
         } else {
             throw new \RuntimeException('Should never happen');
         }
@@ -105,8 +107,9 @@ class MessageController extends AbstractController
                 'sender_type' => $message->getSenderType(),
                 'sent_by_current_user' => $sentByCurrentUser,
                 'user_name' => $userName,
-        'vendor_name' => $vendorName,
-                'currentUserRole' => $currentUserType
+                'vendor_name' => $vendorName,
+                'currentUserRole' => $currentUserType,
+                'contact_name' => $contactName // Ajoute le nom du contact
             ];
         }
 
@@ -114,6 +117,7 @@ class MessageController extends AbstractController
             'messages' => $messagesJson,
         ]);
     }
+
 
 
 
