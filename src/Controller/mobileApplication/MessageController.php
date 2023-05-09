@@ -67,6 +67,7 @@ class MessageController extends AbstractController
     public function listMessages(EntityManagerInterface $entityManager, int $id): JsonResponse
     {
         $currentUser = $this->getUser();
+        $currentUserType = $this->getUser()->getRoles();
 
         if ($currentUser instanceof Vendor) {
             $vendor = $currentUser;
@@ -105,6 +106,7 @@ class MessageController extends AbstractController
                 'sent_by_current_user' => $sentByCurrentUser,
                 'user_name' => $userName,
         'vendor_name' => $vendorName,
+                'currentUserRole' => $currentUserType
             ];
         }
 
