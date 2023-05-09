@@ -86,6 +86,8 @@ class MessageController extends AbstractController
         $messagesJson = [];
 
         foreach($messages as $message) {
+            $userName = $entityManager->getRepository(User::class)->find($message->getUser()->getId())->getName();
+            $vendorName = $entityManager->getRepository(Vendor::class)->find($message->getVendor()->getId())->getName();
             $sentByCurrentUser = false;
             if ($currentUser instanceof Vendor && $message->getSenderType() === 'VENDOR' && $message->getVendor()->getId() === $currentUser->getId()) {
                 $sentByCurrentUser = true;
@@ -100,7 +102,9 @@ class MessageController extends AbstractController
                 'message' => $message->getMessage(),
                 'created_at' => $message->getCreatedAt()->format(DATE_ATOM),
                 'sender_type' => $message->getSenderType(),
-                'sent_by_current_user' => $sentByCurrentUser
+                'sent_by_current_user' => $sentByCurrentUser,
+                'user_name' => $userName,
+        'vendor_name' => $vendorName,
             ];
         }
 
