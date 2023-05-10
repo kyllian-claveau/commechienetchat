@@ -29,12 +29,14 @@
                     <li class="dropdown"><a class="get-a-quote" href="/logout"><span>Hey {{ app.user.name }}</span><i
                                     class="bi bi-chevron-down dropdown-indicator"></i></a>
                         <ul>
-                            {% if app.user == User::class %}
-                            <li><a href="/dashboard">Tableau de bord</a></li>
-                            {% else %}
-                            <li><a href="/vendor/dashboard">Tableau de bord</a></li>
+                            {% if app.user %}
+                                {% if app.user.roles contains 'ROLE_USER' %}
+                                    <li><a href="/dashboard">Tableau de bord</a></li>
+                                {% else %}
+                                    <li><a href="/vendor/dashboard">Tableau de bord</a></li>
+                                {% endif %}
+                                <li><a href="/logout">Se déconnecter</a></li>
                             {% endif %}
-                            <li><a href="/logout">Se déconnecter</a></li>
                         </ul>
                     </li>
                 {% endif %}
