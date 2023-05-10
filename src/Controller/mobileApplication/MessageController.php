@@ -141,6 +141,7 @@ class MessageController extends AbstractController
             $usersOrVendorsJson[] = [
                 'id' => $userOrVendor->getId(),
                 'name' => $userOrVendor->getName(),
+                'avatarFileName' => $userOrVendor->getAvatarFilename(),
                 'email' => $userOrVendor->getEmail(),
                 'type' => ($userOrVendor instanceof Vendor) ? 'ROLE_VENDOR' : 'ROLE_USER',
             ];
