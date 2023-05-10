@@ -27,12 +27,12 @@ class Contact
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getNom(): ?string
     {
         return $this->nom;
     }
 
-    public function setName(string $nom): self
+    public function setNom(string $nom): self
     {
         $this->nom = $nom;
 
