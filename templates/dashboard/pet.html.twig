@@ -241,7 +241,7 @@
                                                         <b>{{ pet.birthdayDate.diff(datetime).format('%y') }} ans</b>
                                                     </p>
                                                     <p class="item-price"><b>Race : {{ pet.breed }}</b></p>
-                                                    <div class="text-center"><a class="btn btn-primary" href="{{ path('app_delete_pet') }}">Supprimer l'animal</a></div>
+                                                    <div class="text-center"><a class="btn btn-primary" href="{{ path('app_delete_pet', {'id': pet.id}) }}">Supprimer l'animal</a></div>
                                                 </div>
                                             </div>
                                         </div>
