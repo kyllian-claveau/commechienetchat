@@ -75,7 +75,7 @@ class RegistrationController extends AbstractController
             'loginVetoForm' => $loginVetoForm->createview()
         ]);
     }
-    #[Route('/login', name: 'app_login')]
+    #[Route('/user/login', name: 'app_login')]
     public function login(EntityManagerInterface $entityManager): Response
     {
         $loginForm = $this->createForm(LoginType::class);
