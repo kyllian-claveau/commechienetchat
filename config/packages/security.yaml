@@ -35,7 +35,7 @@ security:
             form_login:
                 login_path: app_vendor_login
                 check_path: app_vendor_login
-                default_target_path: /vendor/dashboard
+                default_target_path: /
         mobile:
             pattern: ^/mobile/
             stateless: true
@@ -48,7 +48,7 @@ security:
             form_login:
                 login_path: app_login
                 check_path: app_login
-                default_target_path: /dashboard
+                default_target_path: /
             provider: app_user_vendor_provider
             logout:
                 path: app_user_authentication_logout
